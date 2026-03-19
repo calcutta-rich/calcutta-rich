@@ -271,7 +271,7 @@ function updateFooter(err) {
   else {
     const t=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",hour12:true});
     const note = workingProxy ? " via proxy" : " direct";
-    el.innerHTML='Auto-refreshes every 30s &middot; Last updated <span class="hl">'+t+'</span><span style="color:var(--dim)">'+note+'</span>';
+    el.innerHTML='Auto-refreshes every 15s &middot; Last updated <span class="hl">'+t+'</span><span style="color:var(--dim)">'+note+'</span>';
   }
 }
 
