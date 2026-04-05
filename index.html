@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -279,9 +279,13 @@ async function fetchScores(){
     });
 
     allEvents=[];
+    const seenIds=new Set();
     for(const d of datesToFetch){
       const data=await fetchWithProxy(ESPN_BASE+"?dates="+d+"&groups=100&limit=100");
-      if(data?.events) allEvents.push(...data.events);
+      if(data?.events) data.events.forEach(ev=>{
+        const eid=ev.id||ev.uid||JSON.stringify(ev.date+ev.competitions?.[0]?.competitors?.[0]?.team?.displayName);
+        if(!seenIds.has(eid)){seenIds.add(eid);allEvents.push(ev);}
+      });
     }
 
     // Build game entries from TEAMS config
@@ -569,5 +573,6 @@ render();
 fetchScores();
 setInterval(fetchScores,15000);
 </script>
+
 </body>
 </html>
